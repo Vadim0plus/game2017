@@ -2,7 +2,7 @@
 #include <cstring>
 
 World::World( int x, int y ) : m_Width( x ), m_Height( y ) {
-        int s = m_Width * m_Height * sizeof( byte );
+        int s = m_Width * m_Height;
         p_Cells = new byte[s];
         memset( p_Cells, 0, s );
     }
