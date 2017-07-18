@@ -26,6 +26,8 @@
 #endif
 #endif
 //! [0]
+
+static const QStringList list_item = QStringList() << "Conway" << "Amoeba" << "Life34" << "Maze";
 MainWindow::MainWindow()
 {
 //! [0]
@@ -43,6 +45,73 @@ MainWindow::MainWindow()
     view->verticalHeader()->setMinimumSectionSize(1);
     view->setModel(model);
 //! [1]
+    QGridLayout *layout = new QGridLayout;
+
+    //total groupbox
+    gbox = new QGroupBox(tr("Settings"));
+    layout->addWidget(gbox,0,0);
+    gbox->setFixedWidth(250);
+
+    //GROUPBOX1 ELEMENTS
+    gbox_base = new QGroupBox(tr("Base"));
+    gbox_base->setFixedSize(230,300);
+    QVBoxLayout* laybox1 = new QVBoxLayout;
+    //edits
+    QLineEdit* edit1 = new QLineEdit;
+    edit1->setFixedSize(100,20);
+    QLineEdit* edit2 = new QLineEdit;
+    edit2->setFixedSize(100,20);
+    QLineEdit* edit3 = new QLineEdit;
+    edit3->setFixedSize(100,20);
+    //label
+    QLabel* label_ed1 = new QLabel(tr("Width:"));
+    label_ed1->setFixedSize(100,20);
+    QLabel* label_ed2 = new QLabel(tr("Height:"));
+    label_ed2->setFixedSize(100,20);
+    QLabel* label_ed3 = new QLabel(tr("Iteration time:"));
+    label_ed3->setFixedSize(100,20);
+    QLabel* label_ed4 = new QLabel(tr("Configuration:"));
+    label_ed4->setFixedSize(100,20);
+    //listwidget
+    list = new QListWidget;
+    list->addItems(list_item);
+    list->setFixedHeight(80);
+
+    //layer
+    laybox1->addWidget(label_ed1); //add to groupbox
+    laybox1->addWidget(edit1);
+    laybox1->addWidget(label_ed2);
+    laybox1->addWidget(edit2);
+    laybox1->addWidget(label_ed3);
+    laybox1->addWidget(edit3);
+    laybox1->addWidget(label_ed4);
+    laybox1->addWidget(list);
+    laybox1->addStretch(1);
+    gbox_base->setLayout(laybox1);
+
+    //GROUPBOX2 ELEMENTS
+    gbox_action = new QGroupBox(tr("Action"));
+    gbox_action->setFixedWidth(230);
+    QVBoxLayout* laybox2 = new QVBoxLayout;
+    //button
+    button1 = new QPushButton("Start");
+    button1 -> setFixedSize(100,30);
+    button2 = new QPushButton("Pause");
+    button2 -> setFixedSize(100,30);
+    button3 = new QPushButton("Restart");
+    button3 -> setFixedSize(100,30);
+
+    //layer
+    laybox2->addWidget(button1);
+    laybox2->addWidget(button2);
+    laybox2->addWidget(button3);
+    gbox_action->setLayout(laybox2);
+
+    //total gbox and laayer
+    QVBoxLayout* laybox = new QVBoxLayout;
+    laybox->addWidget(gbox_base);
+    laybox->addWidget(gbox_action);
+    gbox->setLayout(laybox);
 
 //! [2]
     PixelDelegate *delegate = new PixelDelegate(this);
@@ -73,7 +142,7 @@ MainWindow::MainWindow()
 
     menuBar()->addMenu(fileMenu);
     menuBar()->addSeparator();
-    menuBar()->addMenu(helpMenu);
+    menuBar()->addMenu( helpMenu);
 
     connect(openAction, &QAction::triggered, this, &MainWindow::chooseImage);
     connect(printAction, &QAction::triggered, this, &MainWindow::printImage);
@@ -91,9 +160,11 @@ MainWindow::MainWindow()
     controlsLayout->addWidget(pixelSizeSpinBox);
     controlsLayout->addStretch(1);
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    QGridLayout *mainLayout = new QGridLayout;
     mainLayout->addWidget(view);
-    mainLayout->addLayout(controlsLayout);
+
+    mainLayout->addLayout(controlsLayout,1,0);
+    mainLayout->addLayout(layout,0,1);
     centralWidget->setLayout(mainLayout);
 
     setCentralWidget(centralWidget);
@@ -109,27 +180,10 @@ MainWindow::MainWindow()
     cells = new Cellular(20,12);
     cells->setup(1);
 
-   // gbox = new QGroupBox(tr("Settings"));
-    //gbox->
-
-    fir_edit = new QLineEdit;
-    fir_edit->setGeometry(200,30,400,80);
-
-    sec_edit = new QLineEdit(tr("gfhghghgg"));
-    sec_edit->setGeometry(0,0,50,50);
-
-    m_button = new QPushButton("SetCellMap",this);
-    m_button->setGeometry(QRect(QPoint(200,200),QSize(200,50)));
-    connect(m_button, SIGNAL (released()), this, SLOT(handleButton()));
 //! [5]
 }
 //! [5]
 
-void MainWindow::handleButton()
-{
-   // m_button->setText("SetCellMapMap");
-   // m_button->resize(100,100);
-}
 void MainWindow::chooseImage()
 {
     QString fileName = QFileDialog::getOpenFileName(this,
