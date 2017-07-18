@@ -128,3 +128,11 @@ void Cellular::generation()
             p_Rule->swapWrds();
             gen++;
 }
+
+void Cellular::getWidth() const{
+    return p_World->getWidth();
+}
+
+void Cellular::getHeight() const{
+    return p_World->getHeight();
+}

@@ -31,7 +31,8 @@ public:
     1 - Conway,     2 - Amoeba
     3 - life34,     4 - maze  */
     void setup( int r );
-    void Cellular::setup( const int** matrix );
+    void setupConfig( const int** matrix );
+    void applyRules(int r);
 
     /* Generates the new state of world */
     void generation();
@@ -39,6 +40,9 @@ public:
     /* Returns two-dimensial array with cell values */
     int** display_m();
     
+    void getWidth() const;
+    void getHeight() const;
+
 private:
     Rule *p_Rule;
     World *p_World;
