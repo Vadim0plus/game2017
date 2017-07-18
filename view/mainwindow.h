@@ -48,6 +48,7 @@ public slots:
     void updateView();
     void updateTime();
 
+
 private:
     ImageModel *model;
     QAction *printAction;

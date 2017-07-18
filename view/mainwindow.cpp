@@ -43,6 +43,21 @@ MainWindow::MainWindow()
     view->verticalHeader()->setMinimumSectionSize(1);
     view->setModel(model);
 //! [1]
+    QGridLayout *layout = new QGridLayout;
+    QPushButton *button1 = new QPushButton("One");
+    QPushButton *button2 = new QPushButton("Two");
+    QPushButton *button3 = new QPushButton("Three");
+    QPushButton *button4 = new QPushButton("Four");
+    QPushButton *button5 = new QPushButton("Five");
+
+    layout->addWidget(button1,0,0);
+    layout->addWidget(button2, 0, 1);
+    layout->addWidget(button3, 1, 0, 1, 2);
+    layout->addWidget(button4, 2, 0);
+    layout->addWidget(button5, 2, 1);
+
+   // centralWidget->setLayout(layout);
+
 
 //! [2]
     PixelDelegate *delegate = new PixelDelegate(this);
@@ -73,7 +88,7 @@ MainWindow::MainWindow()
 
     menuBar()->addMenu(fileMenu);
     menuBar()->addSeparator();
-    menuBar()->addMenu(helpMenu);
+    menuBar()->addMenu( helpMenu);
 
     connect(openAction, &QAction::triggered, this, &MainWindow::chooseImage);
     connect(printAction, &QAction::triggered, this, &MainWindow::printImage);
@@ -91,9 +106,11 @@ MainWindow::MainWindow()
     controlsLayout->addWidget(pixelSizeSpinBox);
     controlsLayout->addStretch(1);
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    QGridLayout *mainLayout = new QGridLayout;
     mainLayout->addWidget(view);
-    mainLayout->addLayout(controlsLayout);
+
+    mainLayout->addLayout(controlsLayout,1,0);
+    mainLayout->addLayout(layout,0,1);
     centralWidget->setLayout(mainLayout);
 
     setCentralWidget(centralWidget);
