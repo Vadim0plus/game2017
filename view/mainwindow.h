@@ -20,6 +20,9 @@
 #include <QMainWindow>
 #include <QTime>
 #include <QTimer>
+#include <QPushButton>
+#include <QGroupBox>
+#include <QLineEdit>
 
 /* Prototypes */
 class ImageModel;
@@ -40,6 +43,7 @@ public:
     /* Render image of World */
     void renderImage();
 
+
     /* Helper functions for RenderImage */
 public slots:
     void chooseImage();
@@ -47,6 +51,7 @@ public slots:
     void showAboutBox();
     void updateView();
     void updateTime();
+    void handleButton();
 
 private:
     ImageModel *model;
@@ -55,6 +60,10 @@ private:
     QTableView *view;
     QTimer *tmr;
     Cellular* cells;
+    QGroupBox* gbox;
+    QPushButton * m_button;
+    QLineEdit * fir_edit;
+    QLineEdit * sec_edit;
 };
 
 #endif // MAINWINDOW_H

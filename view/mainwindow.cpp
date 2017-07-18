@@ -109,10 +109,27 @@ MainWindow::MainWindow()
     cells = new Cellular(20,12);
     cells->setup(1);
 
+   // gbox = new QGroupBox(tr("Settings"));
+    //gbox->
+
+    fir_edit = new QLineEdit;
+    fir_edit->setGeometry(200,30,400,80);
+
+    sec_edit = new QLineEdit(tr("gfhghghgg"));
+    sec_edit->setGeometry(0,0,50,50);
+
+    m_button = new QPushButton("SetCellMap",this);
+    m_button->setGeometry(QRect(QPoint(200,200),QSize(200,50)));
+    connect(m_button, SIGNAL (released()), this, SLOT(handleButton()));
 //! [5]
 }
 //! [5]
 
+void MainWindow::handleButton()
+{
+   // m_button->setText("SetCellMapMap");
+   // m_button->resize(100,100);
+}
 void MainWindow::chooseImage()
 {
     QString fileName = QFileDialog::getOpenFileName(this,
