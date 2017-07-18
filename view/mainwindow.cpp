@@ -112,6 +112,8 @@ MainWindow::MainWindow()
 //! [5]
 void MainWindow::setConfig(int width, int height, int interval)
 {
+    m_CellWidth = width; //Сохраняем переменные на всякий случай, чтобы использовать в будущем 1
+    m_CellHeight = height; //Сохраняем переменные на всякий случай, чтобы использовать в будущем 2
     tmr = new QTimer();
     cells = new Cellular(width, height); //20, 12 - default settings
     tmr->setInterval(interval); //200 - default setting
@@ -129,25 +131,24 @@ void MainWindow::chooseImage()
         renderImage();
 }
 
+void MainWindow::getImage(int m_CellWidth, int m_CellHeight)
+{
+    int** m = cells->display_m();
+    for(int i = 0; i < m_CellWidth; i++) //Задание ширины через переменную
+        for(int j = 0; j < m_CellHeight; j++) //Задание высоты через переменную
+            if(m[i][j] == 1)
+                image.setPixel(i,j,value_0); //В этом случае точка будет отсутствовать
+            else
+                image.setPixel(i,j,value_1); //В этом случае точка будет присутствовать
+}
+
 void MainWindow::renderImage()
 {
     //QImage image;
     QImage image(12,20,QImage::Format_RGB32);
     QRgb value;
 
-    int** m = cells->display_m();
-    for(int i = 0; i < 12; i++)
-        for(int j = 0; j < 20; j++)
-            if(m[i][j] == 1)
-            {
-                value = qRgb(1, 1, 1);
-                image.setPixel(i,j,value);
-            }
-            else
-            {
-                value = qRgb(200, 200, 200);
-                image.setPixel(i,j,value);
-            }
+
     //if (image.load(fileName)) {
         model->setImage(image);
        // if (!fileName.startsWith(":/")) {

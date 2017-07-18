@@ -56,6 +56,8 @@ private:
     QTableView *view;
     QTimer *tmr;
     Cellular* cells;
+    QRgb value_0 = qRgb(1, 1, 1); //Отсутствие точки (белый цвет)
+    QRgb value_1 = qRgb(200, 200, 200); //Наличие точки (черный цвет)
 };
 
 #endif // MAINWINDOW_H

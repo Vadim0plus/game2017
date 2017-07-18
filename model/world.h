@@ -23,19 +23,22 @@ class World
 public:
     /* Constructor with parameters that defines Width and Height of world */
 	World(int x, int y);
-
+    World();
     /* Destructor, free allocated resources */
 	~World();
 
     /* Acceptors */
 	int getWidth() const;
-	int getHeight() const;
+    int getHeight() const;
+
     /* Returns cell value of world */
 	byte at(int x, int y) const;
 
     /* Mutators*/
     /* Set up cell value */
 	void set(int x,int y, byte c);
+    void setWidth(int width);
+    void setHeight(int )
 	
     /* Swap state of World */
 	void swap(World* p_world);
