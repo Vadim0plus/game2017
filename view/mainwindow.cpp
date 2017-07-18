@@ -101,17 +101,24 @@ MainWindow::MainWindow()
     setWindowTitle(tr("Game of Life"));
     resize(640, 480);
 
-    tmr = new QTimer();
-    tmr->setInterval(200);
-    connect(tmr, SIGNAL(timeout()), this, SLOT(updateTime()));
-    tmr->start();
 
-    cells = new Cellular(20,12);
-    cells->setup(1);
+
+
+
+
 
 //! [5]
 }
 //! [5]
+void MainWindow::setConfig(int width, int height, int interval)
+{
+    tmr = new QTimer();
+    cells = new Cellular(width, height); //20, 12 - default settings
+    tmr->setInterval(interval); //200 - default setting
+    connect(tmr, SIGNAL(timeout()), this, SLOT(updateTime()));
+    tmr->start();
+    cells->setup(1);
+}
 
 void MainWindow::chooseImage()
 {

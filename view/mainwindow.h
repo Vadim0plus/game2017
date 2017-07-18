@@ -47,6 +47,7 @@ public slots:
     void showAboutBox();
     void updateView();
     void updateTime();
+    void setConfig(); // установка Ширины width, Высоты height, Интервала обновления ячеек interval
 
 private:
     ImageModel *model;
