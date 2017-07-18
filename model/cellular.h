@@ -31,6 +31,7 @@ public:
     1 - Conway,     2 - Amoeba
     3 - life34,     4 - maze  */
     void setup( int r );
+    void Cellular::setup( const int** matrix );
 
     /* Generates the new state of world */
     void generation();

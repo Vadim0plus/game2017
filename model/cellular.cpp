@@ -74,6 +74,19 @@ void Cellular::setup( int r )
         p_World->set( 3, 3, 1 );
         /******************************************/
 }
+
+void Cellular::setupConfig( const int** matrix )
+{
+        p_Rule = new Rule( p_World );
+        int m_Width = p_World->getWidth();
+        int m_Height = p_World->getHeight();
+        for(y = 0; y < m_Height; y++)
+            for(x = 0; x < m_Width; x++)
+                if(matrix[y][x] == true)
+                    p_World->set(y, x, 1);
+                else
+                    p_World->set(y, x, 0);
+}
 /*
 void Cellular::display() 
 {
