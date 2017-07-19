@@ -190,19 +190,35 @@ MainWindow::MainWindow()
     setWindowTitle(tr("Game of Life"));
     resize(640, 480);
 
-
-
-
-
-
-
 //! [5]
 }
+
+
+void MainWindow::setMap(){
+    std::string m_Width = edit_Width.text();
+    std::string m_Height = edit_Height.text();
+    std::string m_Time = edit_Time.text();
+    this->setConfig(std::stoi(m_Width), std::stoi(m_Height), std::stoi(m_Time));
+}
+
+
 //! [5]
 void MainWindow::setConfig(int width, int height, int interval)
 {
-    tmr = new QTimer();
-    cells = new Cellular(width, height); //20, 12 - default settings
+    if(tmr == nullptr)
+        tmr = new QTimer();
+    else
+    {
+        delete tmr;
+        tmr = new QTimer();
+    }
+    if(cells == nullptr)
+        cells = new Cellular(width, height); //20, 12 - default settings
+    else
+    {
+        delete cells;
+        cells = new QTimer();
+    }
     tmr->setInterval(interval); //200 - default setting
     connect(tmr, SIGNAL(timeout()), this, SLOT(updateTime()));
     tmr->start();

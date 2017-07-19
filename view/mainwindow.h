@@ -51,6 +51,7 @@ public slots:
     void showAboutBox();
     void updateView();
     void updateTime();
+    void setMap();
     void setConfig(int, int, int); // установка Ширины width, Высоты height, Интервала обновления ячеек interval
 
 
