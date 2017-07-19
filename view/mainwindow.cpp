@@ -26,6 +26,8 @@
 #endif
 #endif
 //! [0]
+
+static const QStringList list_item = QStringList() << "Conway" << "Amoeba" << "Life34" << "Maze";
 MainWindow::MainWindow()
 {
 //! [0]
@@ -43,6 +45,91 @@ MainWindow::MainWindow()
     view->verticalHeader()->setMinimumSectionSize(1);
     view->setModel(model);
 //! [1]
+    QGridLayout *layout = new QGridLayout;
+
+    //total groupbox
+    gbox = new QGroupBox(tr("Settings"));
+    layout->addWidget(gbox,0,0);
+    gbox->setFixedWidth(250);
+
+    //GROUPBOX1 ELEMENTS
+    gbox_base = new QGroupBox(tr("Base"));
+    gbox_base->setFixedSize(230,300);
+    QVBoxLayout* laybox1 = new QVBoxLayout;
+    //edits
+    QLineEdit* edit1 = new QLineEdit;
+    edit1->setFixedSize(100,20);
+    edit1->setValidator(new QRegExpValidator(QRegExp("[0-9]*"),this));
+    // connect(label_ed1, SIGNAL(returnPressed()),this,SLOT(keyPressEvent(QKeyEvent*)));
+    QLineEdit* edit2 = new QLineEdit;
+    edit2->setFixedSize(100,20);
+    edit2->setValidator(new QRegExpValidator(QRegExp("[0-9]*"),this));
+    QLineEdit* edit3 = new QLineEdit;
+    edit3->setFixedSize(100,20);
+    edit3->setValidator(new QRegExpValidator(QRegExp("[0-9]*"),this));
+    //label
+    QLabel* label_ed1 = new QLabel(tr("Width:"));
+    label_ed1->setFixedSize(100,20);  
+    QLabel* label_ed2 = new QLabel(tr("Height:"));
+    label_ed2->setFixedSize(100,20);
+    QLabel* label_ed3 = new QLabel(tr("Iteration time:"));
+    label_ed3->setFixedSize(100,20);
+    QLabel* label_ed4 = new QLabel(tr("Configuration:"));
+    label_ed4->setFixedSize(100,20);
+    //listwidget
+    list = new QListWidget;
+    list->addItems(list_item);
+    list->setFixedHeight(80);
+
+    //layer
+    laybox1->addWidget(label_ed1); //add to groupbox
+    laybox1->addWidget(edit1);
+    laybox1->addWidget(label_ed2);
+    laybox1->addWidget(edit2);
+    laybox1->addWidget(label_ed3);
+    laybox1->addWidget(edit3);
+    laybox1->addWidget(label_ed4);
+    laybox1->addWidget(list);
+    laybox1->addStretch(1);
+    gbox_base->setLayout(laybox1);
+
+    //GROUPBOX2 ELEMENTS
+    gbox_action = new QGroupBox(tr("Action"));
+    gbox_action->setFixedWidth(230);
+    QVBoxLayout* laybox2 = new QVBoxLayout;
+    //button
+    button1 = new QPushButton("Start");
+    button1 -> setFixedSize(100,30);
+    button2 = new QPushButton("Pause");
+    button2 -> setFixedSize(100,30);
+    button3 = new QPushButton("Restart");
+    button3 -> setFixedSize(100,30);
+
+    //layer
+    laybox2->addWidget(button1);
+    laybox2->addWidget(button2);
+    laybox2->addWidget(button3);
+    gbox_action->setLayout(laybox2);
+
+    //total gbox and laayer
+    QVBoxLayout* laybox = new QVBoxLayout;
+    laybox->addWidget(gbox_base);
+    laybox->addWidget(gbox_action);
+    gbox->setLayout(laybox);
+=======
+    QPushButton *button1 = new QPushButton("One");
+    QPushButton *button2 = new QPushButton("Two");
+    QPushButton *button3 = new QPushButton("Three");
+    QPushButton *button4 = new QPushButton("Four");
+    QPushButton *button5 = new QPushButton("Five");
+
+    layout->addWidget(button1,0,0);
+    layout->addWidget(button2, 0, 1);
+    layout->addWidget(button3, 1, 0, 1, 2);
+    layout->addWidget(button4, 2, 0);
+    layout->addWidget(button5, 2, 1);
+
+   // centralWidget->setLayout(layout);
 
 //! [2]
     PixelDelegate *delegate = new PixelDelegate(this);
@@ -73,7 +160,7 @@ MainWindow::MainWindow()
 
     menuBar()->addMenu(fileMenu);
     menuBar()->addSeparator();
-    menuBar()->addMenu(helpMenu);
+    menuBar()->addMenu( helpMenu);
 
     connect(openAction, &QAction::triggered, this, &MainWindow::chooseImage);
     connect(printAction, &QAction::triggered, this, &MainWindow::printImage);
@@ -91,9 +178,11 @@ MainWindow::MainWindow()
     controlsLayout->addWidget(pixelSizeSpinBox);
     controlsLayout->addStretch(1);
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    QGridLayout *mainLayout = new QGridLayout;
     mainLayout->addWidget(view);
-    mainLayout->addLayout(controlsLayout);
+
+    mainLayout->addLayout(controlsLayout,1,0);
+    mainLayout->addLayout(layout,0,1);
     centralWidget->setLayout(mainLayout);
 
     setCentralWidget(centralWidget);
@@ -119,6 +208,8 @@ void MainWindow::setConfig(int width, int height, int interval)
     tmr->start();
     cells->setup(1);
 }
+
+
 
 void MainWindow::chooseImage()
 {
