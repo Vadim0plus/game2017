@@ -352,3 +352,21 @@ void MainWindow::updateView()
     view->resizeRowsToContents();
 }
 //! [6]
+
+void MainWindow::testHeight()
+{
+    std::string str = this->editField.text();
+    if str == ""
+            std::cout << "Failed\n";
+    else
+            std::cout << "OK\n";
+}
+
+void MainWindow::testWidth()
+{
+    std::string str = this->editFild.text();
+    if str==""
+            std::cout << "Failed\n";
+    else
+            std::cout << "OK\n";s
+}

@@ -26,7 +26,6 @@ public:
 
     /* Destructor, free allocated resources */
 	~World();
-
     /* Acceptors */
 	int getWidth() const;
 	int getHeight() const;
@@ -45,5 +44,14 @@ private:
     int m_Height; // Height of World
     byte* p_Cells; // Contain the values of cells
 };
-#endif
+
 	
+class WorldTest : public World
+{
+    public:
+    TestGetWidth();
+    TestGetHeight();
+    TestAt();
+    TestSet();
+};
+#endif
