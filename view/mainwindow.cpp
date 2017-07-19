@@ -59,13 +59,17 @@ MainWindow::MainWindow()
     //edits
     QLineEdit* edit1 = new QLineEdit;
     edit1->setFixedSize(100,20);
+    edit1->setValidator(new QRegExpValidator(QRegExp("[0-9]*"),this));
+    // connect(label_ed1, SIGNAL(returnPressed()),this,SLOT(keyPressEvent(QKeyEvent*)));
     QLineEdit* edit2 = new QLineEdit;
     edit2->setFixedSize(100,20);
+    edit2->setValidator(new QRegExpValidator(QRegExp("[0-9]*"),this));
     QLineEdit* edit3 = new QLineEdit;
     edit3->setFixedSize(100,20);
+    edit3->setValidator(new QRegExpValidator(QRegExp("[0-9]*"),this));
     //label
     QLabel* label_ed1 = new QLabel(tr("Width:"));
-    label_ed1->setFixedSize(100,20);
+    label_ed1->setFixedSize(100,20);  
     QLabel* label_ed2 = new QLabel(tr("Height:"));
     label_ed2->setFixedSize(100,20);
     QLabel* label_ed3 = new QLabel(tr("Iteration time:"));
@@ -183,6 +187,8 @@ MainWindow::MainWindow()
 //! [5]
 }
 //! [5]
+
+
 
 void MainWindow::chooseImage()
 {
