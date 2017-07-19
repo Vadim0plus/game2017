@@ -6,14 +6,16 @@ HEADERS     = view/imagemodel.h \
               view/pixeldelegate.h \
               	model/cellular.h \
               	model/rules.h \
-              	model/world.h
+              	model/world.h \
+    form.h
 SOURCES     = view/imagemodel.cpp \
               view/mainwindow.cpp \
               view/pixeldelegate.cpp \
               	model/cellular.cpp \
               	model/rules.cpp \
               	model/world.cpp \
-    application.cpp
+    application.cpp \
+    form.cpp
 
 
 # install
@@ -23,3 +25,6 @@ INSTALLS += target
 DISTFILES += \
     LICENSE \
     README
+
+FORMS += \
+    form.ui

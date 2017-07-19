@@ -20,6 +20,10 @@
 #include <QMainWindow>
 #include <QTime>
 #include <QTimer>
+#include <QGroupBox>
+#include <QPushButton>
+#include <QLineEdit>
+#include <QListWidget>
 
 /* Prototypes */
 class ImageModel;
@@ -49,6 +53,7 @@ public slots:
     void updateTime();
     void setConfig(); // установка Ширины width, Высоты height, Интервала обновления ячеек interval
 
+
 private:
     ImageModel *model;
     QAction *printAction;
@@ -56,8 +61,18 @@ private:
     QTableView *view;
     QTimer *tmr;
     Cellular* cells;
+<<<<<<< HEAD
     QRgb value_0 = qRgb(1, 1, 1); //Отсутствие точки (белый цвет)
     QRgb value_1 = qRgb(200, 200, 200); //Наличие точки (черный цвет)
+=======
+    QGroupBox* gbox;
+    QPushButton* button1;
+    QPushButton* button2;
+    QPushButton* button3;
+    QGroupBox* gbox_base;
+    QGroupBox* gbox_action;
+    QListWidget* list;
+>>>>>>> master
 };
 
 #endif // MAINWINDOW_H
