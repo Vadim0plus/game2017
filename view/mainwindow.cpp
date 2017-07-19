@@ -57,16 +57,16 @@ MainWindow::MainWindow()
     gbox_base->setFixedSize(230,300);
     QVBoxLayout* laybox1 = new QVBoxLayout;
     //edits
-    QLineEdit* edit1 = new QLineEdit;
-    edit1->setFixedSize(100,20);
-    edit1->setValidator(new QRegExpValidator(QRegExp("[0-9]*"),this));
+    edit_Width = new QLineEdit;
+    edit_Width->setFixedSize(100,20);
+    edit_Width->setValidator(new QRegExpValidator(QRegExp("[0-9]*"),this));
     // connect(label_ed1, SIGNAL(returnPressed()),this,SLOT(keyPressEvent(QKeyEvent*)));
-    QLineEdit* edit2 = new QLineEdit;
-    edit2->setFixedSize(100,20);
-    edit2->setValidator(new QRegExpValidator(QRegExp("[0-9]*"),this));
-    QLineEdit* edit3 = new QLineEdit;
-    edit3->setFixedSize(100,20);
-    edit3->setValidator(new QRegExpValidator(QRegExp("[0-9]*"),this));
+    edit_Height = new QLineEdit;
+    edit_Height->setFixedSize(100,20);
+    edit_Height->setValidator(new QRegExpValidator(QRegExp("[0-9]*"),this));
+    edit_Time = new QLineEdit;
+    edit_Time->setFixedSize(100,20);
+    edit_Time->setValidator(new QRegExpValidator(QRegExp("[0-9]*"),this));
     //label
     QLabel* label_ed1 = new QLabel(tr("Width:"));
     label_ed1->setFixedSize(100,20);  
@@ -79,36 +79,48 @@ MainWindow::MainWindow()
     //listwidget
     list = new QListWidget;
     list->addItems(list_item);
-    list->setFixedHeight(80);
-
+    list->setFixedHeight(100);
+    //button
+    btn_w_h_in = new QPushButton("OK");
+    btn_w_h_in-> setFixedSize(100,30);
     //layer
     laybox1->addWidget(label_ed1); //add to groupbox
-    laybox1->addWidget(edit1);
+    laybox1->addWidget(edit_Width);
     laybox1->addWidget(label_ed2);
-    laybox1->addWidget(edit2);
+    laybox1->addWidget(edit_Height);
     laybox1->addWidget(label_ed3);
-    laybox1->addWidget(edit3);
+    laybox1->addWidget(edit_Time);
+    laybox1->addWidget(btn_w_h_in);
     laybox1->addWidget(label_ed4);
     laybox1->addWidget(list);
+
     laybox1->addStretch(1);
     gbox_base->setLayout(laybox1);
 
     //GROUPBOX2 ELEMENTS
     gbox_action = new QGroupBox(tr("Action"));
     gbox_action->setFixedWidth(230);
-    QVBoxLayout* laybox2 = new QVBoxLayout;
+    QGridLayout* laybox2 = new QGridLayout;
     //button
-    button1 = new QPushButton("Start");
-    button1 -> setFixedSize(100,30);
-    button2 = new QPushButton("Pause");
-    button2 -> setFixedSize(100,30);
-    button3 = new QPushButton("Restart");
-    button3 -> setFixedSize(100,30);
-
+    button_def = new QPushButton("Default");
+    button_def -> setFixedSize(100,30);
+    button_view = new QPushButton("View");
+    button_view -> setFixedSize(100,30);
+    button_start = new QPushButton("Start");
+    button_start -> setFixedSize(100,30);
+    button_restart = new QPushButton("Restart");
+    button_restart -> setFixedSize(100,30);
+    button_pause = new QPushButton("Pause");
+    button_pause -> setFixedSize(100,30);
+    button_next_iter = new QPushButton("Next Iteration");
+    button_next_iter -> setFixedSize(100,30);
     //layer
-    laybox2->addWidget(button1);
-    laybox2->addWidget(button2);
-    laybox2->addWidget(button3);
+    laybox2->addWidget(button_def,0,0);
+    laybox2->addWidget(button_view,0,1);
+    laybox2->addWidget(button_start,1,0);
+    laybox2->addWidget(button_restart,1,1);
+    laybox2->addWidget(button_pause,2,0);
+    laybox2->addWidget(button_next_iter,2,1);
     gbox_action->setLayout(laybox2);
 
     //total gbox and laayer
@@ -123,9 +135,9 @@ MainWindow::MainWindow()
     QPushButton *button4 = new QPushButton("Four");
     QPushButton *button5 = new QPushButton("Five"); */
 
-    layout->addWidget(button1,0,0);
-    layout->addWidget(button2, 0, 1);
-    layout->addWidget(button3, 1, 0, 1, 2);
+ //   layout->addWidget(button1,0,0);
+ //   layout->addWidget(button2, 0, 1);
+  //  layout->addWidget(button3, 1, 0, 1, 2);
   //  layout->addWidget(button4, 2, 0);
  //   layout->addWidget(button5, 2, 1);
 
