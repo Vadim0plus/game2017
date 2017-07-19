@@ -186,7 +186,7 @@ MainWindow::MainWindow()
     centralWidget->setLayout(mainLayout);
 
     setCentralWidget(centralWidget);
-
+    this->setConfig(20,12,200);
     setWindowTitle(tr("Game of Life"));
     resize(640, 480);
 
