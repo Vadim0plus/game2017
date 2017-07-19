@@ -20,6 +20,10 @@
 #include <QMainWindow>
 #include <QTime>
 #include <QTimer>
+#include <QGroupBox>
+#include <QPushButton>
+#include <QLineEdit>
+#include <QListWidget>
 
 /* Prototypes */
 class ImageModel;
@@ -56,6 +60,13 @@ private:
     QTableView *view;
     QTimer *tmr;
     Cellular* cells;
+    QGroupBox* gbox;
+    QPushButton* button1;
+    QPushButton* button2;
+    QPushButton* button3;
+    QGroupBox* gbox_base;
+    QGroupBox* gbox_action;
+    QListWidget* list;
 };
 
 #endif // MAINWINDOW_H
