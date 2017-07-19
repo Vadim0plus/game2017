@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
     window.show();
 
     /* Render Image of World */
-    window.renderImage();
+    window.getImage(12,20);
 
     return app.exec();
 }

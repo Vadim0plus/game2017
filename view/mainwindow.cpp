@@ -23,6 +23,7 @@
 #if QT_CONFIG(printdialog)
 #include <QPrinter>
 #include <QPrintDialog>
+#include <QString>
 #endif
 #endif
 //! [0]
@@ -173,7 +174,7 @@ MainWindow::MainWindow()
     menuBar()->addMenu(fileMenu);
     menuBar()->addSeparator();
     menuBar()->addMenu( helpMenu);
-
+    connect(btn_w_h_in, SIGNAL (released()), this, SLOT(setMap()));
     connect(openAction, &QAction::triggered, this, &MainWindow::chooseImage);
     connect(printAction, &QAction::triggered, this, &MainWindow::printImage);
     connect(quitAction, &QAction::triggered, qApp, &QCoreApplication::quit);
@@ -198,6 +199,8 @@ MainWindow::MainWindow()
     centralWidget->setLayout(mainLayout);
 
     setCentralWidget(centralWidget);
+    tmr = nullptr;
+    cells = nullptr;
     this->setConfig(20,12,200);
     setWindowTitle(tr("Game of Life"));
     resize(640, 480);
@@ -207,10 +210,10 @@ MainWindow::MainWindow()
 
 
 void MainWindow::setMap(){
-    std::string m_Width = edit_Width.text();
-    std::string m_Height = edit_Height.text();
-    std::string m_Time = edit_Time.text();
-    this->setConfig(std::stoi(m_Width), std::stoi(m_Height), std::stoi(m_Time));
+    QString m_Width = edit_Width->text();
+    QString m_Height = edit_Height->text();
+    QString m_Time = edit_Time->text();
+    this->setConfig(m_Time.toInt(), m_Height.toInt(), m_Time.toInt());
 }
 
 
@@ -218,7 +221,10 @@ void MainWindow::setMap(){
 void MainWindow::setConfig(int width, int height, int interval)
 {
     if(tmr == nullptr)
+    {
         tmr = new QTimer();
+        image = new QImage(width,height,QImage::Format_RGB32);
+    }
     else
     {
         delete tmr;
@@ -229,12 +235,16 @@ void MainWindow::setConfig(int width, int height, int interval)
     else
     {
         delete cells;
-        cells = new QTimer();
+        delete image;
+        cells = new Cellular(width, height);
+        image = new QImage(width,height,QImage::Format_RGB32);
     }
     tmr->setInterval(interval); //200 - default setting
     connect(tmr, SIGNAL(timeout()), this, SLOT(updateTime()));
     tmr->start();
     cells->setup(1);
+    m_Width = width;
+    m_Height = height;
 }
 
 
@@ -245,45 +255,57 @@ void MainWindow::chooseImage()
         tr("Choose an image"), currentPath, "*");
 
     if (!fileName.isEmpty())
-        renderImage();
+        getImage(m_Width,m_Height);
 }
 
-void MainWindow::renderImage()
+//void MainWindow::renderImage()
+//{
+//    //QImage image;
+//    QImage image(12,20,QImage::Format_RGB32);
+//    QRgb value;
+
+//    int** m = cells->display_m();
+//    for(int i = 0; i < 12; i++)
+//        for(int j = 0; j < 20; j++)
+//            if(m[i][j] == 1)
+//            {
+//                value = qRgb(1, 1, 1);
+//                image.setPixel(i,j,value);
+//            }
+//            else
+//            {
+//                value = qRgb(200, 200, 200);
+//                image.setPixel(i,j,value);
+//            }
+//    //if (image.load(fileName)) {
+//        model->setImage(image);
+//       // if (!fileName.startsWith(":/")) {
+//            currentPath = "ddf";
+//            setWindowTitle(tr("%1 - Game of Life").arg(currentPath));
+
+
+//        printAction->setEnabled(true);
+//        updateView();
+
+//}
+
+void MainWindow::getImage(int m_CellWidth, int m_CellHeight)
 {
-    //QImage image;
-    QImage image(12,20,QImage::Format_RGB32);
-    QRgb value;
 
     int** m = cells->display_m();
-    for(int i = 0; i < 12; i++)
-        for(int j = 0; j < 20; j++)
+    for(int i = 0; i < m_CellWidth; i++) //Задание ширины через переменную
+        for(int j = 0; j < m_CellHeight; j++) //Задание высоты через переменную
             if(m[i][j] == 1)
-            {
-                value = qRgb(1, 1, 1);
-                image.setPixel(i,j,value);
-            }
+                image->setPixel(i,j,qRgb(1,1,1)); //В этом случае точка будет отсутствовать
             else
-            {
-                value = qRgb(200, 200, 200);
-                image.setPixel(i,j,value);
-            }
-    //if (image.load(fileName)) {
-        model->setImage(image);
-       // if (!fileName.startsWith(":/")) {
-            currentPath = "ddf";
-            setWindowTitle(tr("%1 - Game of Life").arg(currentPath));
-
-
-        printAction->setEnabled(true);
-        updateView();
-
+                image->setPixel(i,j,qRgb(200,200,200)); //В этом случае точка будет присутствовать
 }
 
 
 void MainWindow::updateTime()
 {
     cells->generation();
-    this->renderImage();
+    this->getImage(m_Width,m_Height);
 }
 
 void MainWindow::printImage()

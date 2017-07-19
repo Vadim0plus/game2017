@@ -42,7 +42,7 @@ public:
     MainWindow();
 
     /* Render image of World */
-    void renderImage();
+void getImage(int m_CellWidth, int m_CellHeight);
 
     /* Helper functions for RenderImage */
 public slots:
@@ -76,6 +76,9 @@ private:
     QGroupBox* gbox_base;
     QGroupBox* gbox_action;
     QListWidget* list;
+    int m_Height;
+    int m_Width;
+    QImage *image;
 };
 
 #endif // MAINWINDOW_H
